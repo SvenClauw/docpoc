@@ -58,7 +58,7 @@ dependencies {
     testCompile "org.grails.plugins:geb"
     testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
     testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
-    test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
+//    test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
 }
 
 bootRun {
