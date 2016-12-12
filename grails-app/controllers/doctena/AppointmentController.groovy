@@ -1,7 +1,8 @@
 package doctena
 
-import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+
+import static org.springframework.http.HttpStatus.*
 
 @Transactional(readOnly = true)
 class AppointmentController {
@@ -10,7 +11,7 @@ class AppointmentController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond Appointment.list(params), model:[appointmentCount: Appointment.count()]
+        respond Appointment.list(params), model: [appointmentCount: Appointment.count()]
     }
 
     def show(Appointment appointment) {
@@ -31,11 +32,11 @@ class AppointmentController {
 
         if (appointment.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond appointment.errors, view:'create'
+            respond appointment.errors, view: 'create'
             return
         }
 
-        appointment.save flush:true
+        appointment.save flush: true
 
         request.withFormat {
             form multipartForm {
@@ -60,18 +61,18 @@ class AppointmentController {
 
         if (appointment.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond appointment.errors, view:'edit'
+            respond appointment.errors, view: 'edit'
             return
         }
 
-        appointment.save flush:true
+        appointment.save flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'appointment.label', default: 'Appointment'), appointment.id])
                 redirect appointment
             }
-            '*'{ respond appointment, [status: OK] }
+            '*' { respond appointment, [status: OK] }
         }
     }
 
@@ -84,14 +85,14 @@ class AppointmentController {
             return
         }
 
-        appointment.delete flush:true
+        appointment.delete flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'appointment.label', default: 'Appointment'), appointment.id])
-                redirect action:"index", method:"GET"
+                redirect action: "index", method: "GET"
             }
-            '*'{ render status: NO_CONTENT }
+            '*' { render status: NO_CONTENT }
         }
     }
 
@@ -101,7 +102,7 @@ class AppointmentController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'appointment.label', default: 'Appointment'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 }

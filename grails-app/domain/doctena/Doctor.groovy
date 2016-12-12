@@ -1,13 +1,23 @@
 package doctena
 
-class Doctor extends doctena.model.AbstractModel {
+import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.ObjectIdGenerators
 
-    def String firstName
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+class Doctor implements AbstractModel {
 
-    def String lastName
+    String firstName
 
-    def Appointment[] appointments = []
+    String lastName
+
+    static hasMany = [appointments: Appointment]
+
+    def getName() {
+        return firstName + " " + lastName
+    }
 
     static constraints = {
     }
+
+    static auditable = [handlersOnly: true]
 }

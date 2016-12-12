@@ -79,6 +79,14 @@ grails:
                 scriptlets: html
                 taglib: none
                 staticparts: none
+    plugin:
+      awssdk:
+        accessKey: AKIAIANH6MQIM7SAYBLA
+        secretKey: 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
+        region: eu-central-1
+        queue: audit-queue
+        queueNamePrefix: scl_
+
 endpoints:
     jmx:
         unique-names: true
@@ -86,9 +94,9 @@ endpoints:
 ---
 hibernate:
     cache:
-        queries: false
+        queries: true
         use_second_level_cache: true
-        use_query_cache: false
+        use_query_cache: true
         region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
     dialect: net.kaleidos.hibernate.PostgresqlExtensionsDialect
 
@@ -96,24 +104,30 @@ dataSource:
     pooled: true
     jmxExport: true
     driverClassName: org.postgresql.Driver
-    username: doctena
-    password: doctena
-    url: jdbc:postgresql://localhost:5432/doctena
-    dbCreate: update
+    username: doctenatest
+    password: doctenatest
+    url: jdbc:postgresql://aapusbt7p1au6x.cgtcukr4wphn.eu-central-1.rds.amazonaws.com:5432/ebdb
+    dbCreate: validate
+
+quartz:
+  auto-startup: true
 
 environments:
     development:
         dataSource:
-            dbCreate: create-drop
-            url: jdbc:postgresql://localhost:5432/doctena
+            dbCreate: update
+            url: jdbc:postgresql://aapusbt7p1au6x.cgtcukr4wphn.eu-central-1.rds.amazonaws.com:5432/ebdb
     test:
         dataSource:
             dbCreate: update
-            url: jdbc:postgresql://localhost:5432/doctena
+            url: jdbc:postgresql://aapusbt7p1au6x.cgtcukr4wphn.eu-central-1.rds.amazonaws.com:5432/ebdb
     production:
+        grails:
+          logging.jul.usebridge: false
+          serverURL: http://sample-env-1.3hvun3ph8f.eu-central-1.elasticbeanstalk.com/
         dataSource:
-            dbCreate: none
-            url: jdbc:postgresql://localhost:5432/doctena
+            dbCreate: update
+            url: jdbc:postgresql://aapusbt7p1au6x.cgtcukr4wphn.eu-central-1.rds.amazonaws.com:5432/ebdb
             properties:
                 jmxEnabled: true
                 initialSize: 5

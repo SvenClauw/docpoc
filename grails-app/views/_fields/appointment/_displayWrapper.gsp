@@ -1,0 +1,1 @@
+<g:link method="GET" resource="${bean}"><f:display bean="${bean}" property="date"/></g:link>

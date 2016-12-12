@@ -7,6 +7,7 @@ buildscript {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
         classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.11.6"
         classpath "org.grails.plugins:hibernate5:6.0.4"
+        classpath "org.grails.plugins:views-gradle:1.2.0.M2"
     }
 }
 
@@ -17,6 +18,7 @@ apply plugin:"eclipse"
 apply plugin:"idea"
 apply plugin:"war"
 apply plugin:"org.grails.grails-web"
+apply plugin:"org.grails.plugins.views-json"
 apply plugin:"org.grails.grails-gsp"
 apply plugin:"asset-pipeline"
 
@@ -46,13 +48,15 @@ dependencies {
     compile "org.grails.plugins:hibernate5"
     compile "org.hibernate:hibernate-core:5.1.2.Final"
     compile "org.hibernate:hibernate-ehcache:5.1.2.Final"
-    compile "org.grails.plugins:rabbitmq:1.0.0"
-    compile "org.grails.plugins:rabbitmq-native:3.1.0"
     compile "org.grails.plugins:postgresql-extensions:4.6.2"
+    compile 'org.grails.plugins:aws-sdk-sqs:2.0.9'
+    compile 'org.grails.plugins:audit-logging:2.0.2'
+    compile "org.grails.plugins:views-json:1.2.0.M2"
     console "org.grails:grails-console"
+    compile 'org.grails.plugins:quartz:2.0.9'
     profile "org.grails.profiles:web"
     runtime "com.bertramlabs.plugins:asset-pipeline-grails:2.11.6"
-    runtime "com.h2database:h2"
+//    runtime "com.h2database:h2"
     runtime "org.postgresql:postgresql:9.4.1208.jre7"
     testCompile "org.grails:grails-plugin-testing"
     testCompile "org.grails.plugins:geb"
@@ -61,8 +65,26 @@ dependencies {
 //    test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
 }
 
+task pathingJar2(type: Jar) {
+    dependsOn configurations.runtime
+    appendix = 'pathing'
+
+    doFirst {
+        manifest {
+            attributes "Class-Path": configurations.runtime.files.collect {
+                it.toURL().toString().replaceFirst('/file:/+/', '/')
+            }.join(' ')
+
+        }
+    }
+}
+
 bootRun {
     jvmArgs = ['-Dspring.output.ansi.enabled=always']
+    dependsOn pathingJar2
+    doFirst {
+        classpath = files("$buildDir/classes/main", "$buildDir/resources/main", pathingJar2.archivePath)
+    }
 }
 
 assets {

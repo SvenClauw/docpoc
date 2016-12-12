@@ -1,7 +1,8 @@
 package doctena
 
-import grails.test.mixin.*
-import spock.lang.*
+import grails.test.mixin.Mock
+import grails.test.mixin.TestFor
+import spock.lang.Specification
 
 @TestFor(PatientController)
 @Mock(Patient)
@@ -10,8 +11,8 @@ class PatientControllerSpec extends Specification {
     def populateValidParams(params) {
         assert params != null
 
-        // TODO: Populate valid properties like...
-        //params["name"] = 'someValidName'
+        params["firstName"] = 'John'
+        params["lastName"] = 'Patientson'
         assert false, "TODO: Provide a populateValidParams() implementation for this generated test suite"
     }
 

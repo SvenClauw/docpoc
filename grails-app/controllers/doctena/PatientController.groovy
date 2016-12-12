@@ -1,7 +1,8 @@
 package doctena
 
-import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+
+import static org.springframework.http.HttpStatus.*
 
 @Transactional(readOnly = true)
 class PatientController {
@@ -10,7 +11,7 @@ class PatientController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond Patient.list(params), model:[patientCount: Patient.count()]
+        respond Patient.list(params), model: [patientCount: Patient.count()]
     }
 
     def show(Patient patient) {
@@ -31,11 +32,11 @@ class PatientController {
 
         if (patient.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond patient.errors, view:'create'
+            respond patient.errors, view: 'create'
             return
         }
 
-        patient.save flush:true
+        patient.save flush: true
 
         request.withFormat {
             form multipartForm {
@@ -60,18 +61,18 @@ class PatientController {
 
         if (patient.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond patient.errors, view:'edit'
+            respond patient.errors, view: 'edit'
             return
         }
 
-        patient.save flush:true
+        patient.save flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'patient.label', default: 'Patient'), patient.id])
                 redirect patient
             }
-            '*'{ respond patient, [status: OK] }
+            '*' { respond patient, [status: OK] }
         }
     }
 
@@ -84,14 +85,14 @@ class PatientController {
             return
         }
 
-        patient.delete flush:true
+        patient.delete flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'patient.label', default: 'Patient'), patient.id])
-                redirect action:"index", method:"GET"
+                redirect action: "index", method: "GET"
             }
-            '*'{ render status: NO_CONTENT }
+            '*' { render status: NO_CONTENT }
         }
     }
 
@@ -101,7 +102,7 @@ class PatientController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'patient.label', default: 'Patient'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 }

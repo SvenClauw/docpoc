@@ -1,13 +1,28 @@
 package doctena
 
-class Appointment extends doctena.model.AbstractModel {
+import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.JsonManagedReference
+import com.fasterxml.jackson.annotation.ObjectIdGenerators
 
-    def Doctor doctor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+class Appointment implements doctena.AbstractModel {
 
-    def Patient patient
+    static hasOne = [doctor: Doctor, patient: Patient]
+
+    @JsonManagedReference
+    Doctor doctor
+
+    @JsonManagedReference
+    Patient patient
 
     def Date date
 
     static constraints = {
+    }
+
+    static auditable = [handlersOnly: true]
+
+    def getName() {
+        return date.toString()
     }
 }
