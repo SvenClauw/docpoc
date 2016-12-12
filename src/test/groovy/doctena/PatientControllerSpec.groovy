@@ -13,7 +13,6 @@ class PatientControllerSpec extends Specification {
 
         params["firstName"] = 'John'
         params["lastName"] = 'Patientson'
-        assert false, "TODO: Provide a populateValidParams() implementation for this generated test suite"
     }
 
     void "Test the index action returns the correct model"() {
