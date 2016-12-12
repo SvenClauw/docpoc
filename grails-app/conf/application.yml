@@ -81,8 +81,8 @@ grails:
                 staticparts: none
     plugin:
       awssdk:
-        accessKey: AKIAIANH6MQIM7SAYBLA
-        secretKey: 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
+        accessKey: xxx
+        secretKey: xxx/xxx/xxx
         region: eu-central-1
         queue: audit-queue
         queueNamePrefix: scl_
@@ -104,8 +104,8 @@ dataSource:
     pooled: true
     jmxExport: true
     driverClassName: org.postgresql.Driver
-    username: doctenatest
-    password: doctenatest
+    username: xxx
+    password: xxx
     url: jdbc:postgresql://aapusbt7p1au6x.cgtcukr4wphn.eu-central-1.rds.amazonaws.com:5432/ebdb
     dbCreate: validate
 
