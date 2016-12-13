@@ -81,8 +81,8 @@ grails:
                 staticparts: none
     plugin:
       awssdk:
-        accessKey: AKIAIANH6MQIM7SAYBLA
-        secretKey: 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
+        accessKey: xxx
+        secretKey: xxx/xxx/xxx
         region: eu-central-1
         queue: audit-queue
         queueNamePrefix: scl_
