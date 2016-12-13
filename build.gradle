@@ -2,13 +2,19 @@ buildscript {
     repositories {
         mavenLocal()
         maven { url "https://repo.grails.org/grails/core" }
+        maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
         classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.11.6"
         classpath "org.grails.plugins:hibernate5:6.0.4"
         classpath "org.grails.plugins:views-gradle:1.2.0.M2"
+        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.2.1"
     }
+}
+
+plugins {
+    id "org.sonarqube" version "2.2.1"
 }
 
 version "0.1"
@@ -21,6 +27,7 @@ apply plugin:"org.grails.grails-web"
 apply plugin:"org.grails.plugins.views-json"
 apply plugin:"org.grails.grails-gsp"
 apply plugin:"asset-pipeline"
+apply plugin:"org.sonarqube"
 
 repositories {
     mavenLocal()
