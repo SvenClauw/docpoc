@@ -104,8 +104,8 @@ dataSource:
     pooled: true
     jmxExport: true
     driverClassName: org.postgresql.Driver
-    username: xxx
-    password: xxx
+    username: doctenatest
+    password: doctenatest
     url: jdbc:postgresql://aapusbt7p1au6x.cgtcukr4wphn.eu-central-1.rds.amazonaws.com:5432/ebdb
     dbCreate: validate
 
