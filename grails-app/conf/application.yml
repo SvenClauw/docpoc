@@ -81,8 +81,8 @@ grails:
                 staticparts: none
     plugin:
       awssdk:
-        accessKey: xxx
-        secretKey: xxx/xxx/xxx
+        accessKey: AKIAIANH6MQIM7SAYBLA
+        secretKey: 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
         region: eu-central-1
         queue: audit-queue
         queueNamePrefix: scl_
@@ -120,7 +120,7 @@ environments:
     test:
         dataSource:
             dbCreate: update
-            url: jdbc:postgresql://aapusbt7p1au6x.cgtcukr4wphn.eu-central-1.rds.amazonaws.com:5432/ebdb
+            url: jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
     production:
         grails:
           logging.jul.usebridge: false
