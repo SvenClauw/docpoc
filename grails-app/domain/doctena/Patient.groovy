@@ -1,9 +1,11 @@
 package doctena
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.ObjectIdGenerators
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIgnoreProperties(ignoreUnknown = true, value = ["auditQueueName"])
 class Patient implements doctena.AbstractModel {
 
     String firstName
@@ -15,6 +17,7 @@ class Patient implements doctena.AbstractModel {
     def getName() {
         return firstName + " " + lastName
     }
+
 
     static constraints = {
     }

@@ -17,7 +17,6 @@ class AuditMessageService extends MessageService {
             return
         }
 
-
         AuditLog log = new AuditLog()
         log.with {
             persistentId = event.id

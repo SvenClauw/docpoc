@@ -25,4 +25,5 @@ class Appointment implements doctena.AbstractModel {
     def getName() {
         return date.toString()
     }
+
 }

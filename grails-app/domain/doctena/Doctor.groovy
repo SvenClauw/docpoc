@@ -16,6 +16,7 @@ class Doctor implements AbstractModel {
         return firstName + " " + lastName
     }
 
+
     static constraints = {
     }
 
