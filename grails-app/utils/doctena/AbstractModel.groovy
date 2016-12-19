@@ -17,7 +17,7 @@ trait AbstractModel {
         newMap ->
             println "New object created"
             println newMap
-            def event = createEvent(AuditEvent.AuditEventType.CREATE, null, newMap)
+            def event = createAuditEvent(AuditEvent.AuditEventType.CREATE, null, newMap)
             auditQueueService.send(event)
     }
 
@@ -26,7 +26,7 @@ trait AbstractModel {
         println "Person was changed ..."
         println oldMap
         println newMap
-        def event = createEvent(AuditEvent.AuditEventType.UPDATE, oldMap, newMap)
+        def event = createAuditEvent(AuditEvent.AuditEventType.UPDATE, oldMap, newMap)
         auditQueueService.send(event)
     }
 
@@ -34,11 +34,11 @@ trait AbstractModel {
     def onDelete = { oldMap ->
         println "Object was deleted ..."
         println oldMap
-        def event = createEvent(AuditEvent.AuditEventType.DELETE, oldMap, null)
+        def event = createAuditEvent(AuditEvent.AuditEventType.DELETE, oldMap, null)
         auditQueueService.send(event)
     }
 
-    AuditEvent createEvent(type, Map oldMap, Map newMap) {
+    AuditEvent createAuditEvent(type, Map oldMap, Map newMap) {
         def event = new AuditEvent()
         event.type = type
         event.actor = "admin"
