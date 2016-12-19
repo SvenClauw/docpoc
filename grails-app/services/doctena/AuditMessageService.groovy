@@ -7,6 +7,16 @@ import grails.transaction.Transactional
 @Transactional
 class AuditMessageService extends MessageService {
 
+    /**
+     * This method will process a message of type AUDIT_EVENT.
+     * If the message is not of the correct type the transaction will be rolled back.
+     * If the message is of the correct type, the information will be stored in an
+     * AuditLog object and stored in the database.
+     *
+     * @param message: SQS Message containing a JSON representation of an AuditEvent object
+     * @return nothing
+     * @throws IllegalArgumentException if the message is not of type 'AUDIT_EVENT'
+     */
     @Transactional
     protected def processMessage(Message message) {
         ObjectMapper mapper = new ObjectMapper()
@@ -14,7 +24,7 @@ class AuditMessageService extends MessageService {
         if (!event.messageType == MessageType.AUDIT_EVENT) {
             log.error "Message not of type AUDIT_EVENT: " + event.messageType
             transactionStatus.setRollbackOnly()
-            return
+            throw new IllegalArgumentException("Message not of type AUDIT_EVENT: " + event.messageType)
         }
 
         AuditLog auditLog = new AuditLog()
@@ -32,6 +42,7 @@ class AuditMessageService extends MessageService {
             log.error "Errors found"
             log.error auditLog.getErrors()
             transactionStatus.setRollbackOnly()
+            throw new IllegalArgumentException("Message contains errors: " + auditLog.getErrors())
         }
         auditLog.save flush: true
     }

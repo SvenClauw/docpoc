@@ -6,11 +6,23 @@ import grails.transaction.Transactional
 @Transactional
 abstract class MessageService {
 
+    /**
+     * Receive method that accepts an SQS Message.
+     * It asserts the message and its body are not null.
+     *
+     * @param message
+     * @return
+     * @throws IllegalArgumentException if the message or its body is null
+     */
     @Transactional
     final def receive(Message message) {
-        assert message != null
+        if (message == null) {
+            throw new IllegalArgumentException("Message is null")
+        }
         String body = message.getBody()
-        assert body != null
+        if (body == null) {
+            throw new IllegalArgumentException("Message body is null")
+        }
 
         log.debug body
 

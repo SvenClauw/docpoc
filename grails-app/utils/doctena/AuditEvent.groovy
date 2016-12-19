@@ -1,6 +1,9 @@
 package doctena
 /**
  * Created by sclauw on 11/12/2016.
+ *
+ * Implementation of a DocMessage to represent an audit event.
+ * The message type is hard coded to AUDIT_EVENT
  */
 class AuditEvent implements Serializable, DocMessage {
 

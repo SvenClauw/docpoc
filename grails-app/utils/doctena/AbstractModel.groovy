@@ -40,7 +40,17 @@ trait AbstractModel {
         auditQueueService.send(event)
     }
 
-    AuditEvent createAuditEvent(type, Map oldMap, Map newMap) {
+    /**
+     * Creates a new object AuditEvent with the information provided.
+     * If an object in the old or new values map is an audited object
+     * the toString method is called to represent it in this event.
+     *
+     * @param type type of event
+     * @param oldMap map of properties before the event (can be null)
+     * @param newMap map of properties after the event (can be null)
+     * @return new object AuditEvent
+     */
+    AuditEvent createAuditEvent(AuditEvent.AuditEventType type, Map oldMap, Map newMap) {
         def event = new AuditEvent()
         event.type = type
         event.actor = "admin"
