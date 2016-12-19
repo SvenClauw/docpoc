@@ -15,7 +15,7 @@ class MessagingSpec extends Specification {
     }
 
 
-    void "test that a message is sent when an object is updated"() {
+    void "test that an audit log is created when an object is created"() {
         when:"an object is created"
         def patient = new Patient(firstName: "Test1", lastName: "Test2")
         patient.save flush:true
