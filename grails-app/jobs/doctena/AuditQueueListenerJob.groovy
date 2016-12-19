@@ -22,7 +22,8 @@ class AuditQueueListenerJob {
         List messages = auditQueueService.receive()
         messages.each {
             Message m = (Message) it
-            println "Received message: " + m.getBody()
+            log.debug "Received message: " + m.getBody()
+
             auditMessageService.receive(m)
 
             auditQueueService.deleteMessage(m.getReceiptHandle())

@@ -62,13 +62,14 @@ dependencies {
     compile 'org.grails.plugins:quartz:2.0.9'
     profile "org.grails.profiles:web"
     runtime "com.bertramlabs.plugins:asset-pipeline-grails:2.11.6"
-//    runtime "com.h2database:h2"
+    runtime "com.h2database:h2"
     runtime "org.postgresql:postgresql:9.4.1208.jre7"
     testCompile "org.grails:grails-plugin-testing"
     testCompile "org.grails.plugins:geb"
     testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
     testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
     testRuntime 'org.grails.plugins:build-test-data:3.0.1'
+    testCompile "com.h2database:h2"
 //    test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
 }
 

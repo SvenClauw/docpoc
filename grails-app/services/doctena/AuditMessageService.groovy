@@ -12,13 +12,13 @@ class AuditMessageService extends MessageService {
         ObjectMapper mapper = new ObjectMapper()
         AuditEvent event = mapper.readValue(message.getBody(), AuditEvent.class)
         if (!event.messageType == MessageType.AUDIT_EVENT) {
-            println "Message not of type AUDIT_EVENT: " + event.messageType
+            log.error "Message not of type AUDIT_EVENT: " + event.messageType
             transactionStatus.setRollbackOnly()
             return
         }
 
-        AuditLog log = new AuditLog()
-        log.with {
+        AuditLog auditLog = new AuditLog()
+        auditLog.with {
             persistentId = event.id
             className = event.className
             actor = event.actor
@@ -27,12 +27,12 @@ class AuditMessageService extends MessageService {
             timestamp = event.timestamp
             type = event.type
         }
-        log.validate()
-        if (log.hasErrors()) {
-            println "Errors found"
-            println log.getErrors()
+        auditLog.validate()
+        if (auditLog.hasErrors()) {
+            log.error "Errors found"
+            log.error auditLog.getErrors()
             transactionStatus.setRollbackOnly()
         }
-        log.save flush: true
+        auditLog.save flush: true
     }
 }

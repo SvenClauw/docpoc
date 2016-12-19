@@ -12,7 +12,7 @@ abstract class MessageService {
         String body = message.getBody()
         assert body != null
 
-        println body
+        log.debug body
 
         processMessage(message)
     }

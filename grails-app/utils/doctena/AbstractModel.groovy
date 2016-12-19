@@ -1,7 +1,9 @@
 package doctena
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import groovy.util.logging.Log4j
 
+@Log4j
 trait AbstractModel {
 
     @JsonIgnore
@@ -15,25 +17,25 @@ trait AbstractModel {
     @JsonIgnore
     def onSave = {
         newMap ->
-            println "New object created"
-            println newMap
+            log.debug "New object created"
+            log.debug newMap.toString()
             def event = createAuditEvent(AuditEvent.AuditEventType.CREATE, null, newMap)
             auditQueueService.send(event)
     }
 
     @JsonIgnore
     def onChange = { oldMap, newMap ->
-        println "Person was changed ..."
-        println oldMap
-        println newMap
+        log.debug "Object was changed ..."
+        log.debug oldMap.toString()
+        log.debug newMap.toString()
         def event = createAuditEvent(AuditEvent.AuditEventType.UPDATE, oldMap, newMap)
         auditQueueService.send(event)
     }
 
     @JsonIgnore
     def onDelete = { oldMap ->
-        println "Object was deleted ..."
-        println oldMap
+        log.debug "Object was deleted ..."
+        log.debug oldMap.toString()
         def event = createAuditEvent(AuditEvent.AuditEventType.DELETE, oldMap, null)
         auditQueueService.send(event)
     }
@@ -65,7 +67,6 @@ trait AbstractModel {
         }
         event.timestamp = new Date()
         event.className = getClass().getSimpleName()
-        println event
         event
     }
 
