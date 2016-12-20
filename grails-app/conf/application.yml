@@ -112,8 +112,8 @@ environments:
           driverClassName: org.postgresql.Driver
           username: doctenatest
           password: doctenatest
-          url: jdbc:postgresql://aapusbt7p1au6x.cgtcukr4wphn.eu-central-1.rds.amazonaws.com:5432/ebdb
-          dbCreate: validate
+          url: jdbc:postgresql://ebdb.cgtcukr4wphn.eu-central-1.rds.amazonaws.com:5432/ebdb
+          dbCreate: update
     test:
         hibernate:
           dialect: org.hibernate.dialect.H2Dialect
@@ -136,8 +136,8 @@ environments:
             driverClassName: org.postgresql.Driver
             username: doctenatest
             password: doctenatest
-            url: jdbc:postgresql://aapusbt7p1au6x.cgtcukr4wphn.eu-central-1.rds.amazonaws.com:5432/ebdb
-            dbCreate: validate
+            url: jdbc:postgresql://ebdb.cgtcukr4wphn.eu-central-1.rds.amazonaws.com:5432/ebdb
+            dbCreate: update
             properties:
                 jmxEnabled: true
                 initialSize: 5
